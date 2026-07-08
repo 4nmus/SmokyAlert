@@ -1,0 +1,1 @@
+ML system that predicts early signs of company instability using news, job postings, layoffs, employee reviews, leadership changes, and financial sentiment. 
