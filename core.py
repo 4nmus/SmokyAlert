@@ -18,4 +18,5 @@ mlr_model.fit(x_train, y_train)
 
 mlr_score = mlr_model.score(x_test, y_test)
 print(mlr_score)
+print(mlr_model.coef_)
 
