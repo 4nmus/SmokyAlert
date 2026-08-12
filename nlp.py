@@ -64,9 +64,6 @@ for item in news:
 
 df = pd.DataFrame(rows)
 
-df["date"] = pd.to_datetime(df["date"])
-df["week"] = df["date"].dt.isocalendar().week
-
 negative_words = [
     "cut", "cuts", "decline", "loss", "losses", "lawsuit", "investigation",
     "resigns", "outage", "complaints", "slowdown", "collapse", "risk",
@@ -88,6 +85,8 @@ def sentiment_score(text):
     return positive_count - negative_count
 
 
-df["sentiment_score"] = df["text"].apply(sentiment_score)
-df["is_negative"] = (df["sentiment_score"] < 0).astype(int)
-
+if not df.empty:
+    df["date"] = pd.to_datetime(df["date"])
+    df["week"] = df["date"].dt.isocalendar().week
+    df["sentiment_score"] = df["text"].apply(sentiment_score)
+    df["is_negative"] = (df["sentiment_score"] < 0).astype(int)

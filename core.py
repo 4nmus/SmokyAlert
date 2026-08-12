@@ -8,7 +8,7 @@ DATA_PATH = Path(__file__).with_name("data.csv")
 
 df = pd.read_csv(DATA_PATH)
 
-print(df.info())
+df.info()
 
 X = df.drop(columns=["risk_score", 'risk_class'])
 y = df[['risk_score']]
