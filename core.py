@@ -1,9 +1,12 @@
-import numpy as np
+from pathlib import Path
+
 import pandas as pd
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 
-df = pd.read_csv("data.csv")
+DATA_PATH = Path(__file__).with_name("data.csv")
+
+df = pd.read_csv(DATA_PATH)
 
 print(df.info())
 
@@ -19,4 +22,3 @@ mlr_model.fit(x_train, y_train)
 mlr_score = mlr_model.score(x_test, y_test)
 print(mlr_score)
 print(mlr_model.coef_)
-
