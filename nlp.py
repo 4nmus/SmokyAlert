@@ -76,11 +76,30 @@ positive_words = [
 ]
 
 
+def _match_starts(text, phrase):
+    start = text.find(phrase)
+    while start != -1:
+        yield start
+        start = text.find(phrase, start + len(phrase))
+
+
 def sentiment_score(text):
     text = text.lower()
 
+    negative_spans = [
+        (start, start + len(word))
+        for word in negative_words
+        for start in _match_starts(text, word)
+    ]
     negative_count = sum(word in text for word in negative_words)
-    positive_count = sum(word in text for word in positive_words)
+    positive_count = 0
+    for word in positive_words:
+        for start in _match_starts(text, word):
+            end = start + len(word)
+            if all(end <= negative_start or start >= negative_end
+                   for negative_start, negative_end in negative_spans):
+                positive_count += 1
+                break
 
     return positive_count - negative_count
 
